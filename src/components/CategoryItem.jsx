@@ -10,7 +10,7 @@ const Container = styled.div`
 const Image = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
   filter: brightness(0.8);
 `;
 const Wrapper = styled.div`

@@ -6,8 +6,6 @@ import { useState } from "react";
 
 const Container = styled.div`
   position: relative;
-  height: calc(100vh - 9rem);
-  width: 100vw;
 `;
 
 const Arrow = styled.span`
@@ -30,14 +28,15 @@ const Arrow = styled.span`
   z-index: 3;
 `;
 const Wrapper = styled.div`
-  height: 100%;
-  width: 100vw;
+  height: calc(100vh - 9rem);
+
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 const Slide = styled.div`
   width: 100vw;
+  height: 100%;
   display: flex;
   align-items: center;
   background-color: ${(props) => props.bg};

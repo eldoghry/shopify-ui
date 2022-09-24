@@ -30,6 +30,7 @@ const Language = styled.span`
 
 const SearchContainer = styled.div`
   border: 1px solid #a3a3a3;
+  border-radius: 3px;
   padding: 0.3rem 0.5rem;
   display: flex;
   align-items: center;
@@ -37,6 +38,7 @@ const SearchContainer = styled.div`
 `;
 
 const Input = styled.input`
+  padding: 0.2rem 0.5rem;
   border: none;
   outline: none;
   background-color: transparent;
@@ -78,11 +80,11 @@ const Navbar = () => {
         <Language>en</Language>
         <SearchContainer>
           <Input />
-          <SearchIcon style={{ fontSize: "1.6rem", color: "gray" }} />
+          <SearchIcon style={{ fontSize: "1.6rem", color: "#a3a3a3" }} />
         </SearchContainer>
       </Left>
       <Center>
-        <Logo>shopify.</Logo>
+        <Logo>shopify</Logo>
       </Center>
       <Right>
         <Item>register</Item>

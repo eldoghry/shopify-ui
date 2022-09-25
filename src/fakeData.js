@@ -46,12 +46,12 @@ export const products = [
 
   {
     id: 6,
-    img: "https://www.freeiconspng.com/uploads/short-black-dress-png-15.png",
+    img: "https://freepngimg.com/save/14150-polo-shirt-png-file/600x857",
   },
 
   {
     id: 7,
-    img: "https://i.pinimg.com/originals/d1/f1/f8/d1f1f8bae50e63d4923dcbf84f0a6b25.png",
+    img: "https://www.pngall.com/wp-content/uploads/5/Pant-PNG-Pic.png",
   },
 
   {

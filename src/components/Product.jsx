@@ -37,7 +37,7 @@ const Actions = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 
   opacity: 0;
@@ -61,6 +61,7 @@ const Icon = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
+    transform: translateY(-3px);
     opacity: 1;
   }
 `;

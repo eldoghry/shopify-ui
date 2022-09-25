@@ -41,6 +41,7 @@ const Button = styled.button`
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: teal;

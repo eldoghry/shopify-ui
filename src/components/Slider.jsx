@@ -94,6 +94,7 @@ const Button = styled.button`
   border-radius: 3px;
   font-weight: 500;
   border: 2px solid #252525;
+  transition: all 0.3s ease;
   &:hover {
     background-color: teal;
     color: white;

@@ -4,11 +4,7 @@ import Product from "./Product";
 
 const Container = styled.div`
   width: 100%;
-  /* display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem; */
-  margin-top: 2rem;
+  margin: 2rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(28rem, 30rem));
   justify-content: center;

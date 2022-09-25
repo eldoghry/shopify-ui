@@ -29,7 +29,7 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 1px solid #a3a3a3;
+  border: 1px solid lightgray;
   border-radius: 3px;
   padding: 0.3rem 0.5rem;
   display: flex;
@@ -42,6 +42,12 @@ const Input = styled.input`
   border: none;
   outline: none;
   background-color: transparent;
+  color: gray;
+
+  ::placeholder {
+    color: gray;
+    font-style: italic;
+  }
 `;
 
 const Center = styled.div`
@@ -79,7 +85,7 @@ const Navbar = () => {
       <Left>
         <Language>en</Language>
         <SearchContainer>
-          <Input />
+          <Input placeholder="search" />
           <SearchIcon style={{ fontSize: "1.6rem", color: "#a3a3a3" }} />
         </SearchContainer>
       </Left>

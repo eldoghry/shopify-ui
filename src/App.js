@@ -10,14 +10,14 @@ import Layout from "./components/Layout";
 function App() {
   return (
     <div className="App">
-      {/* <Layout> */}
-      {/* <Cart /> */}
-      {/* <Home /> */}
-      {/* <ProductList /> */}
-      {/* <Product /> */}
-      {/* </Layout> */}
+      <Layout>
+        {/* <Cart /> */}
+        {/* <Home /> */}
+        {/* <ProductList /> */}
+        <Product />
+      </Layout>
       {/* <Login /> */}
-      <Register />
+      {/* <Register /> */}
     </div>
   );
 }

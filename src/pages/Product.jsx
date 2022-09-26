@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { mobile, xs, labtop } from "../responsive";
 
 const Container = styled.div`
   padding: 2rem;
   display: flex;
+  ${mobile({
+    flexDirection: "column",
+    justifyContent: "center",
+  })}
 `;
 
 const ImageContainer = styled.div`
@@ -12,6 +17,11 @@ const ImageContainer = styled.div`
   border: 1px solid lightgray;
   margin-right: 2rem;
   padding: 2rem;
+
+  ${mobile({
+    marginRight: "0",
+    marginBottom: "2rem",
+  })}
 `;
 
 const Image = styled.img`
@@ -30,10 +40,14 @@ const Title = styled.h1`
   margin-bottom: 2.2rem;
 `;
 const Desc = styled.p`
+  width: 80%;
   font-size: 1.8rem;
   font-weight: 300;
-  width: 80%;
   margin-bottom: 2rem;
+
+  ${labtop({
+    width: "100%",
+  })}
 `;
 const Price = styled.span`
   font-size: 4rem;
@@ -41,15 +55,24 @@ const Price = styled.span`
   margin-bottom: 1.5rem;
 `;
 const FilterContainer = styled.div`
+  width: 60%;
   font-size: 2rem;
   text-transform: capitalize;
   font-weight: 300;
   display: flex;
   justify-content: space-between;
-  width: 60%;
   margin-bottom: 2rem;
+  ${labtop({
+    width: "100%",
+  })}
+
+  ${xs({
+    flexDirection: "column",
+    gap: "1rem",
+  })}
 `;
 const Filter = styled.div``;
+
 const FilterTittle = styled.span`
   margin-right: 1rem;
 `;
@@ -81,10 +104,14 @@ const Option = styled.option`
 `;
 
 const CTA = styled.div`
-  display: flex;
   width: 60%;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+
+  ${labtop({
+    width: "100%",
+  })}
 `;
 
 const AmountContainer = styled.div`

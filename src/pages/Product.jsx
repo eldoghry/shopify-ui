@@ -2,6 +2,10 @@ import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile, xs, labtop } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicFetcher } from "../utiles/apiFetcher";
+import Loader from "../components/Loader";
 
 const Container = styled.div`
   padding: 2rem;
@@ -171,35 +175,48 @@ const Button = styled.button`
   }
 `;
 
-function ProductList() {
+function ProductPage() {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicFetcher(`/product/${id}`);
+        setProduct(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, [id]);
+
+  if (!product) {
+    return <Loader />;
+  }
+
   return (
     <div>
       <Container>
         <ImageContainer>
-          <Image
-            alt="product image"
-            src="https://pngfolio.com/images/all_img/copy/1638427112t-shirt-png.png"
-          />
+          <Image alt={product.title} src={product.img} />
         </ImageContainer>
         <InfoContainer>
-          <Title>Lorem Ipsum</Title>
-          <Desc>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat
-            mollitia consequatur nam provident at culpa sunt facere similique
-            omnis. Enim vel molestiae corrupti harum deleniti. Sed repudiandae
-            voluptate quo porro.
-          </Desc>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
 
-          <Price>$ 35.00</Price>
+          <Price>$ {product.price}</Price>
 
           <FilterContainer>
             <Filter>
               <FilterTittle>Color</FilterTittle>
               <Colors>
-                <Color color="#555"></Color>
-                <Color color="#db4242"></Color>
-                <Color color="#2b5f2b"></Color>
-                <Color color="#2f2f7e"></Color>
+                {product.colors.map((c) => (
+                  <Color color={c} key={c}></Color>
+                ))}
               </Colors>
             </Filter>
 
@@ -207,9 +224,9 @@ function ProductList() {
               <FilterTittle>size</FilterTittle>
               <Select>
                 <Option disabled>Size</Option>
-                <Option>s</Option>
-                <Option>m</Option>
-                <Option>lg</Option>
+                {product.sizes.map((s) => (
+                  <Option>{s}</Option>
+                ))}
               </Select>
             </Filter>
           </FilterContainer>
@@ -233,4 +250,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductPage;

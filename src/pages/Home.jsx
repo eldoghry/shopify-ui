@@ -3,6 +3,7 @@ import Categories from "../components/Categories";
 import ProductList from "../components/Products";
 import Slider from "../components/Slider";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,7 @@ function Home() {
     <div>
       <Slider />
       <Categories />
-      <ProductList products={products} />
+      <ProductList products={products.slice(0, 12)} />
     </div>
   );
 }

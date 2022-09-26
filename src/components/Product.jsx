@@ -74,14 +74,14 @@ const Product = ({ item }) => {
       <Image src={item.img} alt="product" />
 
       <Actions>
-        <Link to={`/product/${item._id}`}>
-          <Icon>
-            <SearchOutlinedIcon style={{ fontSize: "2.5rem" }} />
-          </Icon>
-        </Link>
-
         <Icon>
           <ShoppingCartOutlinedIcon style={{ fontSize: "2.5rem" }} />
+        </Icon>
+
+        <Icon>
+          <Link to={`/product/${item._id}`}>
+            <SearchOutlinedIcon style={{ fontSize: "2.5rem" }} />
+          </Link>
         </Icon>
 
         <Icon>

@@ -1,32 +1,32 @@
 import React from "react";
 import styled from "styled-components";
-// import { makeStyles } from "@material-ui/core/styles";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "./../responsive";
-// const useStyles = makeStyles((theme) => ({
-//   badge: {
-//     fontSize: 30,
-//   },
-// }));
 
 const Container = styled.div`
   height: 6rem;
   padding: 1rem 1.5rem;
-  /* display: flex; */
-  display: grid;
-  grid-template-columns: repeat(3, minmax(min-content, 1fr));
-  /* align-items: center;
-  justify-content: space-between; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   ${mobile({
-    color: "red",
+    padding: "1rem 2rem",
+    flexWrap: "wrap",
+    height: "10rem",
   })}
 `;
 const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+
+  ${mobile({
+    minWidth: "100%",
+    order: "1",
+    justifyContent: "center",
+  })}
 `;
 const Language = styled.span`
   cursor: pointer;
@@ -53,12 +53,20 @@ const Input = styled.input`
     color: gray;
     font-style: italic;
   }
+
+  ${mobile({
+    width: "75vw",
+  })}
 `;
 
 const Center = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+
+  ${mobile({
+    justifyContent: "start",
+  })}
 `;
 
 const Logo = styled.h1`
@@ -105,7 +113,6 @@ const Navbar = () => {
             badgeContent={3}
             color="primary"
             style={{ fontSize: "1.6rem" }}
-            // classes={{ badge: classes.badge }}
           >
             <ShoppingCartOutlinedIcon style={{ fontSize: "2.8rem" }} />
           </Badge>

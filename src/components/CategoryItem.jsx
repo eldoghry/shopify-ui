@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { mobile, tablet } from "../responsive";
 
 const Container = styled.div`
   flex: 1;
   height: 100%;
   position: relative;
   background-color: aqua;
+
+  ${mobile({
+    height: "20vh",
+  })}
 `;
 const Image = styled.img`
   height: 100%;
@@ -29,6 +34,11 @@ const Title = styled.h1`
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 2rem;
+  text-align: center;
+
+  ${tablet({
+    fontSize: "3rem",
+  })}
 `;
 const Button = styled.button`
   text-transform: uppercase;

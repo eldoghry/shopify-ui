@@ -2,9 +2,13 @@ import styled from "styled-components";
 import ArrowLeftOutlinedIcon from "@mui/icons-material/ArrowLeftOutlined";
 import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import { useState } from "react";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   position: relative;
+  ${mobile({
+    display: "none",
+  })}
 `;
 
 const Arrow = styled.span`

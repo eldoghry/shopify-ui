@@ -10,3 +10,19 @@ html {
   padding: 0;
   box-sizing: inherit;
 }
+
+
+/* 1000px */
+@media screen and (max-width: 62.5em) {
+  html {
+    font-size: 56.25%; /* 9px */
+  }
+}
+
+
+/* 768px */
+@media screen and (max-width: 48em) {
+  html {
+    font-size: 50%; /* 8px */
+  }
+}

@@ -6,17 +6,33 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { tablet, xs } from "../responsive";
 
 const Container = styled.div`
   height: 50vh;
   display: flex;
   justify-content: space-between;
   padding: 3rem;
+
+  ${tablet({
+    height: "35vh",
+    padding: "1rem",
+    justifyContent: "center",
+  })}
+
+  ${xs({
+    height: "70vh",
+    padding: "1rem",
+    flexDirection: "column",
+    justifyContent: "center",
+  })}
 `;
 
 const Left = styled.div`
-  /* padding: 2rem; */
   flex: 1;
+  ${tablet({
+    display: "none",
+  })}
 `;
 const Logo = styled.h1`
   font-size: 4rem;
@@ -65,6 +81,10 @@ const Links = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+
+  ${xs({
+    // textAlign: "center",
+  })}
 `;
 const Link = styled.li`
   width: 50%;

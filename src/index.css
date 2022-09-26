@@ -6,4 +6,13 @@ body {
 
 .MuiBadge-badge {
   font-size: 1.1rem !important;
+  min-width: 2rem !important;
+  height: 2rem !important;
 }
+
+/* @media screen and (max-width: 37.5em) {
+  .MuiBadge-badge {
+    min-width: 2rem !important;
+    height: 2rem !important;
+  }
+} */

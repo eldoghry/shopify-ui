@@ -179,13 +179,26 @@ function ProductPage() {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState(null);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantity = (type) => {
+    if (type === "dec" && quantity > 1) {
+      setQuantity(quantity - 1);
+    } else if (type === "inc") {
+      setQuantity(quantity + 1);
+    }
+  };
 
   useEffect(() => {
     const getProduct = async () => {
       try {
+        console.log("render product in single product page");
         const res = await publicFetcher(`/product/${id}`);
         setProduct(res.data);
-        console.log(res.data);
+        setSize(res.data.sizes[0]);
+        setColor(res.data.colors[0]);
       } catch (error) {
         console.log(error);
       }
@@ -215,17 +228,17 @@ function ProductPage() {
               <FilterTittle>Color</FilterTittle>
               <Colors>
                 {product.colors.map((c) => (
-                  <Color color={c} key={c}></Color>
+                  <Color color={c} key={c} onClick={() => setColor(c)} />
                 ))}
               </Colors>
             </Filter>
 
             <Filter>
               <FilterTittle>size</FilterTittle>
-              <Select>
+              <Select onChange={(e) => setSize(e.target.value)}>
                 <Option disabled>Size</Option>
                 {product.sizes.map((s) => (
-                  <Option>{s}</Option>
+                  <Option key={s}>{s}</Option>
                 ))}
               </Select>
             </Filter>
@@ -233,12 +246,13 @@ function ProductPage() {
 
           <CTA>
             <AmountContainer>
-              <Icon>
+              <Icon onClick={() => handleQuantity("dec")}>
                 <RemoveIcon />
               </Icon>
-              <Amount>1</Amount>
 
-              <Icon>
+              <Amount>{quantity}</Amount>
+
+              <Icon onClick={() => handleQuantity("inc")}>
                 <AddIcon />
               </Icon>
             </AmountContainer>

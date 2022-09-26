@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { products } from "../fakeData";
 import Product from "./Product";
 
 const Container = styled.div`
@@ -11,11 +10,12 @@ const Container = styled.div`
   gap: 2rem;
 `;
 
-const Products = () => {
+const Products = ({ products }) => {
+  // console.log(products);
   return (
     <Container>
       {products.map((item) => (
-        <Product item={item} key={item.id} />
+        <Product item={item} key={item._id} />
       ))}
     </Container>
   );

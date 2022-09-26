@@ -62,7 +62,7 @@ const Button = styled.button`
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Link to="/products/category">
+      <Link to="/products/men">
         <Image alt="category" src={item.img} />
         <Wrapper>
           <Title>{item.title}</Title>

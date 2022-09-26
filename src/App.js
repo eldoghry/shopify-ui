@@ -7,27 +7,30 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Layout from "./components/Layout";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-
-        <Layout>
+    <div className="App">
+      <Router>
+        <ScrollToTop>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/products/" element={<ProductList />} />
-            <Route path="/products/:category" element={<ProductList />} />
-            <Route path="/product/:id" element={<Product />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
-        </Layout>
-      </div>
-    </Router>
+
+          <Layout>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/products/" element={<ProductList />} />
+              <Route path="/products/:category" element={<ProductList />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+          </Layout>
+        </ScrollToTop>
+      </Router>
+    </div>
   );
 }
 

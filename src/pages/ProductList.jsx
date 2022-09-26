@@ -1,7 +1,9 @@
 import Products from "../components/Products";
 import styled from "styled-components";
 import { mobile, xs } from "../responsive";
-
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 const Container = styled.div`
   padding: 2rem;
 `;
@@ -62,10 +64,30 @@ const Option = styled.option`
 `;
 
 function ProductList() {
+  const location = useLocation();
+  const category = location.pathname.split("/")[2];
+  const [filteredProduct, setFilteredProduct] = useState([]);
+
+  console.log(location.pathname.split("/")[2]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/product/?categories=${category}`
+        );
+        console.log(res);
+        setFilteredProduct(res.data);
+      } catch (error) {}
+    };
+
+    getProducts();
+  }, []);
+
   return (
     <div>
       <Container>
-        <Heading>T-Shirts</Heading>
+        <Heading>{category.toUpperCase()}</Heading>
         <FilterContainer>
           <Filter>
             <FilterTittle>filter product</FilterTittle>
@@ -95,7 +117,8 @@ function ProductList() {
             </Select>
           </Filter>
         </FilterContainer>
-        <Products />
+
+        {filteredProduct.length && <Products products={filteredProduct} />}
       </Container>
     </div>
   );

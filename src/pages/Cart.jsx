@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { mobile, xs, tablet, desktop } from "../responsive";
 
 const Container = styled.div`
   padding: 2rem;
@@ -18,6 +19,7 @@ const Title = styled.h1`
   text-transform: uppercase;
   font-weight: 200;
   text-align: center;
+  margin-bottom: 1rem;
 `;
 
 const TopWrapper = styled.div`
@@ -25,14 +27,27 @@ const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  ${tablet({
+    justifyContent: "flex-end",
+  })}
 `;
 
 const Button = styled.button`
+  width: 20rem;
   padding: 1rem 2rem;
   border: none;
   text-transform: uppercase;
   font-weight: 600;
-  width: 20rem;
+
+  ${desktop({
+    padding: "1rem",
+    fontSize: "1.5rem",
+  })}
+
+  ${tablet({
+    display: (props) => (props.type === "summary" ? "block" : "none"),
+  })}
 
   color: ${(props) => (props.type === "summary" ? "white" : "black")};
   background-color: ${(props) =>
@@ -57,18 +72,30 @@ const Button = styled.button`
 const Links = styled.div`
   display: flex;
   gap: 1rem;
+  ${tablet({
+    fontSize: "1.8rem",
+  })}
 `;
 
 const Link = styled.a`
   cursor: pointer;
   text-transform: capitalize;
   text-decoration: underline;
+
+  ${tablet({
+    fontSize: "1.8rem",
+    justifySelf: "flex-end",
+  })}
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+
+  ${tablet({
+    flexDirection: "column",
+  })}
 `;
 
 const Products = styled.div`
@@ -173,11 +200,16 @@ const Summery = styled.div`
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 2rem;
-  height: 40vh;
+  height: 20vw;
   display: flex;
   justify-content: center;
   /* align-items: center; */
   flex-direction: column;
+  ${desktop({
+    flex: "1.5",
+    height: "25vw",
+    padding: "2rem",
+  })}
 `;
 
 const SummaryTitle = styled.h2`
@@ -185,6 +217,10 @@ const SummaryTitle = styled.h2`
   font-weight: 200;
   text-transform: uppercase;
   margin-bottom: 2rem;
+  ${desktop({
+    fontSize: "2.5rem",
+    marginBottom: "1.2rem",
+  })}
 `;
 
 const SummaryItem = styled.span`
@@ -245,6 +281,39 @@ function Cart() {
               <ProductPrice>$ 20.00</ProductPrice>
             </ProductDetail>
           </Product>
+          <Hr />
+          <Product>
+            <ProductImage
+              src="https://pngfolio.com/images/all_img/copy/1638454029black-tshirt-png.png"
+              alt="product image"
+            />
+            <ProductInfo>
+              <Info>
+                <b>Product:</b> Black T shirt
+              </Info>
+              <Info>
+                <b>ID:</b> 64537456486787
+              </Info>
+              <Color color="black"></Color>
+              <Info>
+                <b>Size:</b> M
+              </Info>
+            </ProductInfo>
+
+            <ProductDetail>
+              <ProductQuantityContainer>
+                <Icon>
+                  <RemoveIcon />
+                </Icon>
+                <Quantity>1</Quantity>
+                <Icon>
+                  <AddIcon />
+                </Icon>
+              </ProductQuantityContainer>
+              <ProductPrice>$ 20.00</ProductPrice>
+            </ProductDetail>
+          </Product>
+
           <Hr />
           <Product>
             <ProductImage

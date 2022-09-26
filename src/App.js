@@ -13,8 +13,8 @@ function App() {
       <Layout>
         {/* <Cart /> */}
         {/* <Home /> */}
-        {/* <ProductList /> */}
-        <Product />
+        <ProductList />
+        {/* <Product /> */}
       </Layout>
       {/* <Login /> */}
       {/* <Register /> */}

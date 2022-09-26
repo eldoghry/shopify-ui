@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { xs } from "../responsive";
 
 const Container = styled.div`
   height: 100vh;
@@ -31,6 +32,9 @@ const From = styled.form`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+  ${xs({
+    flexDirection: "column",
+  })}
 `;
 
 const Input = styled.input`
@@ -40,6 +44,10 @@ const Input = styled.input`
   padding: 1rem;
   border-radius: 3px;
   border: 1px solid lightgray;
+
+  ${xs({
+    width: "100%",
+  })}
 
   ::placeholder {
     font-style: italic;

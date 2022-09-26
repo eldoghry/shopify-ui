@@ -4,6 +4,7 @@ import { mobile, xs } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 const Container = styled.div`
   padding: 2rem;
 `;
@@ -66,23 +67,63 @@ const Option = styled.option`
 function ProductList() {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
+  const [products, setProducts] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([]);
-
-  console.log(location.pathname.split("/")[2]);
+  const [sort, setSort] = useState("newest");
+  const [color, setColor] = useState(null);
+  const [size, setSize] = useState(null);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
+        console.log("rerendering product list page");
         const res = await axios.get(
           `http://localhost:3000/api/product/?categories=${category}`
         );
-        console.log(res);
-        setFilteredProduct(res.data);
+        setProducts(
+          res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        );
+
+        setFilteredProduct(
+          res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        );
+
+        // setFilteredProduct([...products]);
       } catch (error) {}
     };
 
     getProducts();
   }, []);
+
+  //Sorting
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProduct([
+        ...products.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        ),
+      ]);
+    } else if (sort === "oldest") {
+      setFilteredProduct([
+        ...products.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        ),
+      ]);
+    } else if (sort === "price(asc)") {
+      setFilteredProduct([...products.sort((a, b) => a.price - b.price)]);
+    } else if (sort === "price(des)") {
+      setFilteredProduct([...products.sort((a, b) => b.price - a.price)]);
+    }
+  }, [sort]);
+
+  //filtering
+  useEffect(() => {
+    console.log(filteredProduct);
+    if (size) {
+      console.log("filtering by size");
+      setFilteredProduct([...products.filter((item) => item.size === size)]);
+    }
+  }, [size]);
 
   return (
     <div>
@@ -92,14 +133,14 @@ function ProductList() {
           <Filter>
             <FilterTittle>filter product</FilterTittle>
             <FilterWrapper>
-              <Select>
+              <Select onChange={(e) => setColor(e.target.value.toLowerCase())}>
                 <Option disabled>Color</Option>
                 <Option>red</Option>
                 <Option>green</Option>
                 <Option>blue</Option>
               </Select>
 
-              <Select>
+              <Select onChange={(e) => setSize(e.target.value.toLowerCase())}>
                 <Option disabled>Size</Option>
                 <Option>s</Option>
                 <Option>m</Option>
@@ -110,15 +151,16 @@ function ProductList() {
 
           <Filter>
             <FilterTittle>sort product</FilterTittle>
-            <Select>
+            <Select onChange={(e) => setSort(e.target.value.toLowerCase())}>
               <Option>newest</Option>
+              <Option>oldest</Option>
               <Option>price(asc)</Option>
               <Option>price(des)</Option>
             </Select>
           </Filter>
         </FilterContainer>
 
-        {filteredProduct.length && <Products products={filteredProduct} />}
+        {filteredProduct.length > 0 && <Products products={filteredProduct} />}
       </Container>
     </div>
   );

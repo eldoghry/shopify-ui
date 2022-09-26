@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { mobile, xs, tablet, desktop } from "../responsive";
+import { tablet, desktop } from "../responsive";
 
 const Container = styled.div`
   padding: 2rem;

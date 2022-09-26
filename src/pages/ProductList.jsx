@@ -1,6 +1,6 @@
 import Products from "../components/Products";
 import styled from "styled-components";
-import { mobile, xs, labtop } from "../responsive";
+import { mobile, xs } from "../responsive";
 
 const Container = styled.div`
   padding: 2rem;

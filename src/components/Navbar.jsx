@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
+import { mobile } from "./../responsive";
 // const useStyles = makeStyles((theme) => ({
 //   badge: {
 //     fontSize: 30,
@@ -14,9 +14,14 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 const Container = styled.div`
   height: 6rem;
   padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(min-content, 1fr));
+  /* align-items: center;
+  justify-content: space-between; */
+  ${mobile({
+    color: "red",
+  })}
 `;
 const Left = styled.div`
   flex: 1;

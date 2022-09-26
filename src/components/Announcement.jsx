@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { tablet, xs } from "../responsive";
 
 const Container = styled.div`
   height: 3rem;
@@ -9,6 +10,16 @@ const Container = styled.div`
   background-color: teal;
   color: white;
   font-weight: 500;
+
+  ${tablet({
+    height: "5rem",
+    fontSize: "1.8rem",
+  })}
+
+  ${xs({
+    height: "5rem",
+    fontSize: "1.5rem",
+  })}
 `;
 
 const Announcement = () => {

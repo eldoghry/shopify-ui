@@ -4,6 +4,7 @@ import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "./../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 6rem;
@@ -11,6 +12,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   ${mobile({
     padding: "1rem 2rem",
     flexWrap: "wrap",
@@ -103,8 +105,11 @@ const Navbar = () => {
         </SearchContainer>
       </Left>
       <Center>
-        <Logo>shopify</Logo>
+        <Link to="/">
+          <Logo>shopify</Logo>
+        </Link>
       </Center>
+
       <Right>
         <Item>register</Item>
         <Item>login</Item>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { mobile, tablet, xs } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -74,9 +74,11 @@ const Product = ({ item }) => {
       <Image src={item.img} alt="product" />
 
       <Actions>
-        <Icon>
-          <SearchOutlinedIcon style={{ fontSize: "2.5rem" }} />
-        </Icon>
+        <Link to="/product/1">
+          <Icon>
+            <SearchOutlinedIcon style={{ fontSize: "2.5rem" }} />
+          </Icon>
+        </Link>
 
         <Icon>
           <ShoppingCartOutlinedIcon style={{ fontSize: "2.5rem" }} />

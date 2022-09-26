@@ -11,6 +11,10 @@ html {
   box-sizing: inherit;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 /* 1000px */
 @media screen and (max-width: 62.5em) {
@@ -18,7 +22,6 @@ html {
     font-size: 56.25%; /* 9px */
   }
 }
-
 
 /* 768px */
 @media screen and (max-width: 48em) {

@@ -82,6 +82,7 @@ const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const Item = styled.span`
@@ -96,7 +97,12 @@ const Item = styled.span`
 const Navbar = () => {
   const qunatity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user);
-  console.log(user);
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("persist:counter");
+    window.location.reload();
+  };
+
   return (
     <Container>
       <Left>
@@ -126,6 +132,7 @@ const Navbar = () => {
         )}
 
         {user.success && <Item>Welcome {user.currentUser.username}</Item>}
+        {user.success && <Item onClick={handleLogout}>logout</Item>}
 
         <Item>
           <Link to="/cart">

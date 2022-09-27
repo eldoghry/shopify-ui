@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicFetcher } from "../utiles/apiFetcher";
 import Loader from "../components/Loader";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartSlice";
 
 const Container = styled.div`
   padding: 2rem;
@@ -176,6 +178,9 @@ const Button = styled.button`
 `;
 
 function ProductPage() {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState(null);
@@ -189,6 +194,20 @@ function ProductPage() {
     } else if (type === "inc") {
       setQuantity(quantity + 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    dispatch(
+      addProduct({
+        product: {
+          ...product,
+          selectedColor: color,
+          selectedSize: size,
+        },
+        price: product.price,
+        quantity,
+      })
+    );
   };
 
   useEffect(() => {
@@ -256,7 +275,7 @@ function ProductPage() {
                 <AddIcon />
               </Icon>
             </AmountContainer>
-            <Button>Add to cart</Button>
+            <Button onClick={handleAddToCart}>Add to cart</Button>
           </CTA>
         </InfoContainer>
       </Container>

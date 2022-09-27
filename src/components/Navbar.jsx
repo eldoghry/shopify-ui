@@ -1,10 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "./../responsive";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 6rem;
@@ -94,7 +94,8 @@ const Item = styled.span`
 `;
 
 const Navbar = () => {
-  // const classes = useStyles();
+  const qunatity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Left>
@@ -114,13 +115,15 @@ const Navbar = () => {
         <Item>register</Item>
         <Item>login</Item>
         <Item>
-          <Badge
-            badgeContent={3}
-            color="primary"
-            style={{ fontSize: "1.6rem" }}
-          >
-            <ShoppingCartOutlinedIcon style={{ fontSize: "2.8rem" }} />
-          </Badge>
+          <Link to="/cart">
+            <Badge
+              badgeContent={qunatity}
+              color="primary"
+              style={{ fontSize: "1.6rem" }}
+            >
+              <ShoppingCartOutlinedIcon style={{ fontSize: "2.8rem" }} />
+            </Badge>
+          </Link>
         </Item>
       </Right>
     </Container>

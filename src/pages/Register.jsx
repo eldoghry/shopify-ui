@@ -1,5 +1,15 @@
 import styled from "styled-components";
 import { xs } from "../responsive";
+import {
+  setLoginLoading,
+  setLoginFail,
+  setCurrentUser,
+} from "./../redux/userSlice";
+import { publicFetcher } from "../utiles/apiFetcher";
+import Loader from "../components/Loader";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -100,20 +110,119 @@ const Link = styled.a`
   }
 `;
 
+const Error = styled.span`
+  color: red;
+  margin-bottom: 1rem;
+  display: inline-block;
+`;
+
 function Register() {
+  const loggedIn = useSelector((state) => state.user.success);
+  const loading = useSelector((state) => state.user.loading);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+
+  const [error, setError] = useState(null);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    console.log(lname, fname);
+    if (
+      !username ||
+      !password ||
+      !fname ||
+      !lname ||
+      !email ||
+      !password ||
+      !passwordConf
+    ) {
+      setError("all inputs are required");
+    } else if (password !== passwordConf) {
+      setError("passwords are not the same");
+      setPassword(null);
+      setPasswordConf(null);
+    } else {
+      setError(null);
+      try {
+        dispatch(setLoginLoading());
+        const res = await publicFetcher.post("/auth/register", {
+          username,
+          email,
+          password,
+        });
+        dispatch(setCurrentUser({ user: res.data }));
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoginFail());
+        if (error.response.data.code === 11000)
+          setError("username or email have been used");
+        else setError("something went wrong, try again later");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn, navigate]);
+
   return (
     <Container>
       <Wrapper>
         <Title>Create Account</Title>
         <From>
-          <Input placeholder="first name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="password confirmation" />
-          <Button>create</Button>
+          <Input
+            type="text"
+            placeholder="first name"
+            onChange={(e) => setFname(e.target.value)}
+            value={fname || ""}
+          />
+          <Input
+            type="text"
+            placeholder="last name"
+            onChange={(e) => setLname(e.target.value)}
+            value={lname || ""}
+          />
+          <Input
+            type="text"
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username || ""}
+          />
+          <Input
+            type="email"
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email || ""}
+          />
+          <Input
+            type="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password || ""}
+          />
+          <Input
+            type="password"
+            placeholder="password confirmation"
+            onChange={(e) => setPasswordConf(e.target.value)}
+            value={passwordConf || ""}
+          />
+          {loading && <Loader />}
+          {!loading && <Button onClick={handleRegister}>create</Button>}
         </From>
+
+        {error && <Error>{error}</Error>}
 
         <Aggrement>
           By creating an account, I consent to the processing of my personal

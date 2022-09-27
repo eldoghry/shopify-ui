@@ -95,7 +95,8 @@ const Item = styled.span`
 
 const Navbar = () => {
   const qunatity = useSelector((state) => state.cart.quantity);
-
+  const user = useSelector((state) => state.user);
+  console.log(user);
   return (
     <Container>
       <Left>
@@ -112,8 +113,20 @@ const Navbar = () => {
       </Center>
 
       <Right>
-        <Item>register</Item>
-        <Item>login</Item>
+        {!user.success && (
+          <Link to="/register">
+            <Item>register</Item>
+          </Link>
+        )}
+
+        {!user.success && (
+          <Link to="/login">
+            <Item>login</Item>
+          </Link>
+        )}
+
+        {user.success && <Item>Welcome {user.currentUser.username}</Item>}
+
         <Item>
           <Link to="/cart">
             <Badge

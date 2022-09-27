@@ -6,10 +6,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Layout from "./components/Layout";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
+  const loggedIn = true;
+
   return (
     <div className="App">
       <Router>

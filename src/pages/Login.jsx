@@ -1,4 +1,14 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Loader from "../components/Loader";
+import { publicFetcher } from "../utiles/apiFetcher";
+import {
+  setLoginLoading,
+  setLoginFail,
+  setCurrentUser,
+} from "./../redux/userSlice";
 
 const Container = styled.div`
   margin: 0;
@@ -84,16 +94,70 @@ const Link = styled.a`
   }
 `;
 
+const Error = styled.span`
+  color: red;
+  margin-bottom: 1rem;
+  display: inline-block;
+`;
+
 function Login() {
+  const loggedIn = useSelector((state) => state.user.success);
+  const loading = useSelector((state) => state.user.loading);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!username || !password) {
+      setError("Username & password are required");
+    } else {
+      try {
+        dispatch(setLoginLoading());
+        const res = await publicFetcher.post("/auth/login", {
+          username,
+          password,
+        });
+
+        dispatch(setCurrentUser({ user: res.data }));
+      } catch (error) {
+        dispatch(setLoginFail());
+        if (error.response.status === 401) setError(error.response.data);
+        else setError("username not found");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn]);
+
   return (
     <Container>
       <Wrapper>
         <Title>sign in</Title>
         <From>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
-          <Button>login</Button>
+          <Input
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {loading && <Loader />}
+          {!loading && <Button onClick={handleLogin}>login</Button>}
         </From>
+
+        {error && <Error>{error}</Error>}
 
         <Link href="#">don't remember my password</Link>
         <Link href="#">create new account</Link>

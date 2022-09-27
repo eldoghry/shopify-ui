@@ -77,9 +77,8 @@ const Product = ({ item }) => {
           ...item,
           selectedColor: item.colors[0],
           selectedSize: item.sizes[0],
+          quantity: 1,
         },
-        price: item.price,
-        quantity: 1,
       })
     );
   };

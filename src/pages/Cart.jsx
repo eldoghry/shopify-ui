@@ -2,8 +2,8 @@ import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { tablet, desktop } from "../responsive";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateProductQuantity } from "../redux/cartSlice";
 const Container = styled.div`
   padding: 2rem;
 `;
@@ -238,6 +238,19 @@ const SummaryAmount = styled.span``;
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const discount = 10;
+  const shipping = 10;
+
+  const updateQunatityHandler = (index, sign) => {
+    dispatch(
+      updateProductQuantity({
+        index,
+        sign,
+      })
+    );
+  };
 
   return (
     <Container>
@@ -254,7 +267,7 @@ function Cart() {
       <Bottom>
         <Products>
           {cart.products.map((product, index) => (
-            <div key={product._id}>
+            <div key={`${index} + ${product._id}`}>
               {index !== 0 && <Hr />}
               <Product>
                 <ProductImage src={product.img} alt={product.title} />
@@ -273,15 +286,17 @@ function Cart() {
 
                 <ProductDetail>
                   <ProductQuantityContainer>
-                    <Icon>
+                    <Icon onClick={() => updateQunatityHandler(index, "dec")}>
                       <RemoveIcon />
                     </Icon>
-                    <Quantity>1</Quantity>
-                    <Icon>
+                    <Quantity>{product.quantity}</Quantity>
+                    <Icon onClick={() => updateQunatityHandler(index, "inc")}>
                       <AddIcon />
                     </Icon>
                   </ProductQuantityContainer>
-                  <ProductPrice>$ {product.price}</ProductPrice>
+                  <ProductPrice>
+                    $ {product.price * product.quantity}
+                  </ProductPrice>
                 </ProductDetail>
               </Product>
             </div>
@@ -290,16 +305,17 @@ function Cart() {
         <Summery>
           <SummaryTitle>order summary</SummaryTitle>
           <SummaryItem>
-            subtotal<SummaryAmount>$ 80.00</SummaryAmount>
+            subtotal<SummaryAmount>{cart.total} $</SummaryAmount>
           </SummaryItem>
           <SummaryItem>
-            estimated shipping<SummaryAmount>$ 80.00</SummaryAmount>
+            estimated shipping<SummaryAmount>{shipping} $</SummaryAmount>
           </SummaryItem>
           <SummaryItem>
-            discount<SummaryAmount>$ 80.00</SummaryAmount>
+            discount<SummaryAmount>{discount} $</SummaryAmount>
           </SummaryItem>
           <SummaryItem type="total">
-            Total<SummaryAmount>$ 80.00</SummaryAmount>
+            Total
+            <SummaryAmount>{cart.total + shipping - discount} $</SummaryAmount>
           </SummaryItem>
           <Button type="summary">checkout now</Button>
         </Summery>

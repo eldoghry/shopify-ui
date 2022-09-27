@@ -152,7 +152,7 @@ const Icon = styled.div`
 
 const Amount = styled.span`
   border: 1px solid lightgray;
-  padding: 0.7rem 1.5rem;                                           
+  padding: 0.7rem 1.5rem;
   border-radius: 3px;
   margin: 0 1rem;
   text-align: center;
@@ -207,9 +207,8 @@ function ProductPage() {
           ...product,
           selectedColor: color,
           selectedSize: size,
+          quantity,
         },
-        price: product.price,
-        quantity,
       })
     );
   };

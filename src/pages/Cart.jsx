@@ -2,6 +2,7 @@ import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { tablet, desktop } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   padding: 2rem;
@@ -236,6 +237,8 @@ const SummaryItem = styled.span`
 const SummaryAmount = styled.span``;
 
 function Cart() {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <Container>
       <Top>
@@ -250,102 +253,39 @@ function Cart() {
       </Top>
       <Bottom>
         <Products>
-          <Product>
-            <ProductImage
-              src="https://i.pinimg.com/originals/51/2b/4b/512b4b870390fac58da5206e88d228d6.png"
-              alt="product image"
-            />
-            <ProductInfo>
-              <Info>
-                <b>Product:</b> Nike Shoes
-              </Info>
-              <Info>
-                <b>ID:</b> 897643674367947787
-              </Info>
-              <Color color="#C7FC31"></Color>
-              <Info>
-                <b>Size:</b> 41
-              </Info>
-            </ProductInfo>
+          {cart.products.map((product, index) => (
+            <div key={product._id}>
+              {index !== 0 && <Hr />}
+              <Product>
+                <ProductImage src={product.img} alt={product.title} />
+                <ProductInfo>
+                  <Info>
+                    <b>Product:</b> {product.title}
+                  </Info>
+                  <Info>
+                    <b>ID:</b> {product._id}
+                  </Info>
+                  <Color color={product.selectedColor} />
+                  <Info>
+                    <b>Size:</b> {product.selectedSize}
+                  </Info>
+                </ProductInfo>
 
-            <ProductDetail>
-              <ProductQuantityContainer>
-                <Icon>
-                  <RemoveIcon />
-                </Icon>
-                <Quantity>1</Quantity>
-                <Icon>
-                  <AddIcon />
-                </Icon>
-              </ProductQuantityContainer>
-              <ProductPrice>$ 20.00</ProductPrice>
-            </ProductDetail>
-          </Product>
-          <Hr />
-          <Product>
-            <ProductImage
-              src="https://pngfolio.com/images/all_img/copy/1638454029black-tshirt-png.png"
-              alt="product image"
-            />
-            <ProductInfo>
-              <Info>
-                <b>Product:</b> Black T shirt
-              </Info>
-              <Info>
-                <b>ID:</b> 64537456486787
-              </Info>
-              <Color color="black"></Color>
-              <Info>
-                <b>Size:</b> M
-              </Info>
-            </ProductInfo>
-
-            <ProductDetail>
-              <ProductQuantityContainer>
-                <Icon>
-                  <RemoveIcon />
-                </Icon>
-                <Quantity>1</Quantity>
-                <Icon>
-                  <AddIcon />
-                </Icon>
-              </ProductQuantityContainer>
-              <ProductPrice>$ 20.00</ProductPrice>
-            </ProductDetail>
-          </Product>
-
-          <Hr />
-          <Product>
-            <ProductImage
-              src="https://pngfolio.com/images/all_img/copy/1638454029black-tshirt-png.png"
-              alt="product image"
-            />
-            <ProductInfo>
-              <Info>
-                <b>Product:</b> Black T shirt
-              </Info>
-              <Info>
-                <b>ID:</b> 64537456486787
-              </Info>
-              <Color color="black"></Color>
-              <Info>
-                <b>Size:</b> M
-              </Info>
-            </ProductInfo>
-
-            <ProductDetail>
-              <ProductQuantityContainer>
-                <Icon>
-                  <RemoveIcon />
-                </Icon>
-                <Quantity>1</Quantity>
-                <Icon>
-                  <AddIcon />
-                </Icon>
-              </ProductQuantityContainer>
-              <ProductPrice>$ 20.00</ProductPrice>
-            </ProductDetail>
-          </Product>
+                <ProductDetail>
+                  <ProductQuantityContainer>
+                    <Icon>
+                      <RemoveIcon />
+                    </Icon>
+                    <Quantity>1</Quantity>
+                    <Icon>
+                      <AddIcon />
+                    </Icon>
+                  </ProductQuantityContainer>
+                  <ProductPrice>$ {product.price}</ProductPrice>
+                </ProductDetail>
+              </Product>
+            </div>
+          ))}
         </Products>
         <Summery>
           <SummaryTitle>order summary</SummaryTitle>

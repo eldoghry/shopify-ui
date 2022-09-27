@@ -93,6 +93,9 @@ const Color = styled.div`
   border: 1px solid lightgray;
   background-color: ${(props) => props.color};
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   :not(:last-child) {
     margin-right: 1rem;
@@ -149,9 +152,10 @@ const Icon = styled.div`
 
 const Amount = styled.span`
   border: 1px solid lightgray;
-  padding: 0.7rem 1.5rem;
+  padding: 0.7rem 1.5rem;                                           
   border-radius: 3px;
   margin: 0 1rem;
+  text-align: center;
 `;
 
 const Button = styled.button`
@@ -247,7 +251,9 @@ function ProductPage() {
               <FilterTittle>Color</FilterTittle>
               <Colors>
                 {product.colors.map((c) => (
-                  <Color color={c} key={c} onClick={() => setColor(c)} />
+                  <Color color={c} key={c} onClick={() => setColor(c)}>
+                    {c === color ? "\u2714" : ""}
+                  </Color>
                 ))}
               </Colors>
             </Filter>

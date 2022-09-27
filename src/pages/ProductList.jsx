@@ -77,8 +77,11 @@ function ProductList() {
     const getProducts = async () => {
       try {
         console.log("rerendering product list page");
+
         const res = await axios.get(
-          `http://localhost:3000/api/product/?categories=${category}`
+          `http://localhost:3000/api/product/${
+            category ? "?categories=${category}" : ""
+          }`
         );
         setProducts(
           res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -128,7 +131,7 @@ function ProductList() {
   return (
     <div>
       <Container>
-        <Heading>{category.toUpperCase()}</Heading>
+        <Heading>{category ? category.toUpperCase() : "ALL PRODUCTS"}</Heading>
         <FilterContainer>
           <Filter>
             <FilterTittle>filter product</FilterTittle>

@@ -3,6 +3,8 @@ import ArrowLeftOutlinedIcon from "@mui/icons-material/ArrowLeftOutlined";
 import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import { useState } from "react";
 import { mobile } from "../responsive";
+import { sliders } from "../fakeData.js";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: relative;
@@ -106,6 +108,8 @@ const Button = styled.button`
 `;
 
 const SliderPage = () => {
+  const navigate = useNavigate();
+
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleArrow = (direction) => {
@@ -124,53 +128,18 @@ const SliderPage = () => {
         <ArrowLeftOutlinedIcon style={{ fontSize: "3rem" }} />
       </Arrow>
       <Wrapper>
-        <Slide bg="#ffff0045" indexPage={slideIndex}>
-          <ImageContainer>
-            <Image
-              src="https://i.pinimg.com/originals/ce/8a/f1/ce8af1c3c322ba23c9f93afeb2b45c18.png"
-              alt="slide"
-            />
-          </ImageContainer>
-          <TextContainer>
-            <Heading>summer sale</Heading>
-            <Paragraph>
-              don't compromise on tyle! get flat 30% off for new arrivals.
-            </Paragraph>
-            <Button>shop now</Button>
-          </TextContainer>
-        </Slide>
-
-        <Slide bg="#c4dfef45" indexPage={slideIndex}>
-          <ImageContainer>
-            <Image
-              src="https://www.pngall.com/wp-content/uploads/2016/04/Shopping-Download-PNG.png"
-              alt="slide"
-            />
-          </ImageContainer>
-          <TextContainer>
-            <Heading>summer sale</Heading>
-            <Paragraph>
-              don't compromise on tyle! get flat 30% off for new arrivals.
-            </Paragraph>
-            <Button>shop now</Button>
-          </TextContainer>
-        </Slide>
-
-        <Slide bg="#f6ace545" indexPage={slideIndex}>
-          <ImageContainer>
-            <Image
-              src="https://www.lesenfantsclothing.com/wp-content/uploads/2019/09/stylish-child-slider2.png"
-              alt="slide"
-            />
-          </ImageContainer>
-          <TextContainer>
-            <Heading>summer sale</Heading>
-            <Paragraph>
-              don't compromise on tyle! get flat 30% off for new arrivals.
-            </Paragraph>
-            <Button>shop now</Button>
-          </TextContainer>
-        </Slide>
+        {sliders.map((slide) => (
+          <Slide bg={slide.color} indexPage={slideIndex} key={slide.id}>
+            <ImageContainer>
+              <Image src={slide.img} alt={slide.title} />
+            </ImageContainer>
+            <TextContainer>
+              <Heading>{slide.title}</Heading>
+              <Paragraph>{slide.desc}</Paragraph>
+              <Button onClick={() => navigate("/products")}>shop now</Button>
+            </TextContainer>
+          </Slide>
+        ))}
       </Wrapper>
 
       <Arrow direction="right" onClick={() => handleArrow("right")}>

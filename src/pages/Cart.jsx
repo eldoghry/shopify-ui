@@ -4,6 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { tablet, desktop } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProductQuantity } from "../redux/cartSlice";
+
 const Container = styled.div`
   padding: 2rem;
 `;
